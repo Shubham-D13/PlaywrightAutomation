@@ -43,7 +43,7 @@ test('Enable/Disabled', async ({ page }) => {
 
 
 
-test.only('Text Match and mismatch', async ({ page }) => {
+test('Text Match and mismatch', async ({ page }) => {
         await page.goto('https://letcode.in/button');
         await expect(page.locator('#home')).toHaveText('Goto Home');
         await expect(page.locator('#home')).not.toHaveText('Shubham');
@@ -51,10 +51,33 @@ test.only('Text Match and mismatch', async ({ page }) => {
 
 });
 
-test.only('Element Attributes', async ({ page }) => {
+test('Element Attributes', async ({ page }) => {
         await page.goto('https://opensource-demo.orangehrmlive.com/');
-        await expect(page.locator('#home')).toHaveText('Goto Home');
-        await expect(page.locator('#home')).not.toHaveText('Shubham');
-        await expect(page.locator('button[title="Disabled button"]')).toHaveText('Disabled');
+        await expect(page.locator('input[name="username"]')).toHaveAttribute('placeholder','Username')
+        await expect(page.locator('input[name="username"]')).toHaveAttribute('class', /oxd-input.*/);
+});
+
+test('URL and Title', async ({ page }) => {
+        await page.goto('https://opensource-demo.orangehrmlive.com/');
+        // First way to verify that URL
+        await expect(await page.url()).toEqual('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+        // Second way to verify that URL
+        await expect(await page).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+
+        //Partial URL Assertion
+        await expect(await page).toHaveURL(/source-demo.orangehrmlive/);
+
+        expect(await page.title()).toEqual('OrangeHRM');
+        await expect(await page).toHaveTitle('OrangeHRM');
+
+        //Partial Title Assertion
+        // expect(await page.title()).toEqual(/Orange.*/);
+
+});
+
+test.only('Screenshot', async ({ page }) => {
+        await page.goto('https://opensource-demo.orangehrmlive.com/');
+        await expect(await page.locator('input[name="username"]')).toBeVisible();
+        // await expect(await page).toHaveScreenshot();
 
 });

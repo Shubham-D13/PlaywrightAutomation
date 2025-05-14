@@ -13,3 +13,15 @@ test('Locator Strategy', async ({page}) =>{
     await page.locator('//input[@data-test="login-button"]').click();
     await page.pause();
 });
+
+// Syntax 
+// var variableName = variableValue
+
+var myName = "Vignesh";
+let myAge = 35;
+const myGender = "Male";
+
+console.log("My name is" +myName+ "and my age is "+myAge+" and I am of Gender "+myGender);
+
+// var and let values can be changed
+// Const values cannot be changed
